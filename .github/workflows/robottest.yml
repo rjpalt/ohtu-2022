@@ -1,4 +1,4 @@
-name: CI
+name: Exercise web-login-robot test suite workflow
 
 on: workflow_dispatch
 
