@@ -23,8 +23,11 @@ class UserService:
 
         user = self._user_repository.find_by_username(username)
 
-        if not user or user.password != password:
-            raise AuthenticationError("Invalid username or password")
+        if not user:
+            raise AuthenticationError("Invalid username")
+
+        if user.password != password:
+            raise AuthenticationError("Invalid password")
 
         return user
 
@@ -41,14 +44,13 @@ class UserService:
         if not username or not password:
             raise UserInputError("Username and password are required")
 
-        if re.match('^[a-z]{3,}$', username):
-            print('Username OK')
-        else:
+        if not re.match('^[a-z]{3,}$', username):
             raise UserInputError('Invalid username')
 
-        if re.match('(.{0,}|^)[^a-zA-Z](.{0,}|$)', password) and len(password) >= 8:
-            print('Password OK')
-        else:
+        if not (re.match('(.{0,}|^)[^a-zA-Z](.{0,}|$)', password) and len(password) >= 8):
             raise UserInputError('Invalid password')
+
+        if password != password_confirmation:
+            raise UserInputError('Passwords must match')
 
 user_service = UserService()

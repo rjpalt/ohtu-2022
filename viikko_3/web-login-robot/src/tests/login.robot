@@ -15,13 +15,13 @@ Login With Incorrect Password
     Set Username  kalle
     Set Password  kalle456
     Submit Credentials
-    Login Should Fail With Message  Invalid username or password
+    Login Should Fail With Message  Invalid password
 
 Login With Nonexistent Username
     Set Username  rasmus
     Set Password  rasmus666
     Submit Credentials
-    Login Should Fail With Message  Invalid username or password
+    Login Should Fail With Message  Invalid username
 
 *** Keywords ***
 Login Should Succeed

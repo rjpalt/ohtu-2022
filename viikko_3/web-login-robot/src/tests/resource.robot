@@ -19,6 +19,9 @@ Open And Configure Browser
 Login Page Should Be Open
     Title Should Be  Login
 
+Welcome Page Should Be Open
+    Title Should Be  Welcome to Ohtu Application!
+
 Main Page Should Be Open
     Title Should Be  Ohtu Application main page
 
