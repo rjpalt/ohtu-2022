@@ -6,7 +6,6 @@ class Ostoskori:
     def __init__(self):
         
         self._tuotteet = []
-        self._hinta = 0
 
     def tavaroita_korissa(self):
 
@@ -33,7 +32,6 @@ class Ostoskori:
                 return
 
         self._tuotteet.append(Ostos(lisattava))
-        self._hinta += lisattava._hinta
 
     def poista_tuote(self, poistettava: Tuote):
         # poistaa tuotteen
