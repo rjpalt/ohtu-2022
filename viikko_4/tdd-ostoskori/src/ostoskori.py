@@ -19,8 +19,8 @@ class Ostoskori:
         return self._hinta
 
     def lisaa_tuote(self, lisattava: Tuote):
-        # lisää tuotteen
-        pass
+        
+        self._tuotteet.append(Ostos(lisattava))
 
     def poista_tuote(self, poistettava: Tuote):
         # poistaa tuotteen

@@ -11,11 +11,11 @@ class TestOstoskori(unittest.TestCase):
         self.assertEqual(self.kori.hinta(), 0)
         self.assertEqual(self.kori.tavaroita_korissa(), 0)
 
+    def test_yhden_tuotteen_lisaamisen_jalkeen_korissa_yksi_tavara(self):
+        maito = Tuote("Maito", 3)
+        self.kori.lisaa_tuote(maito)
 
-# Laajenna testiä siten että se testaa myös tavaroiden määrän 
-# (metodin tavaroita_korissa paluuarvo). Kun testi on valmis, 
-# ohjelmoi ostoskoria sen verran että testi menee läpi. 
-# Tee ainoastaan minimaalisin mahdollinen toteutus, jolla 
-# saat testin läpi.
+        self.assertEqual(self.kori.tavaroita_korissa(), 1)
+        
 
-#Lisää ja commitoi muutokset ja anna kuvaava commit-viesti.
+# Yhden tuotteen lisäämisen jälkeen ostoskorissa on 1 tavara.
