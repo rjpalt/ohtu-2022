@@ -99,7 +99,6 @@ class TestKauppa(unittest.TestCase):
 
     def test_ostos_saldollisella_ja_saldottomalla_tuotteella_varmista_ostoksen_oikeus(self):
 
-
         # tehdään ostokset
         self.kauppa.aloita_asiointi()
         self.kauppa.lisaa_koriin(2)
@@ -108,3 +107,48 @@ class TestKauppa(unittest.TestCase):
 
         # varmistetaan, että metodia tilisiirto on kutsuttu
         self.pankki_mock.tilisiirto.assert_called_with("Rasmus", 42, "858585", "33333-44455", 2)
+
+    def test_aloita_asiointi_nollaa_ostoskorin(self):
+
+        self.viitegeneraattori_mock.uusi.side_effect = [1, 2, 3]
+
+        # tehdään ostokset
+        self.kauppa.aloita_asiointi()
+        self.kauppa.lisaa_koriin(2)
+        self.kauppa.lisaa_koriin(3)
+        self.kauppa.tilimaksu("Rasmus", "858585")
+
+        # varmistetaan, että metodia tilisiirto on kutsuttu
+        self.pankki_mock.tilisiirto.assert_called_with("Rasmus", 1, "858585", "33333-44455", 2)
+
+        # tehdään toiset ostokset
+        self.kauppa.aloita_asiointi()
+        self.kauppa.lisaa_koriin(1)
+        self.kauppa.lisaa_koriin(2)
+        self.kauppa.tilimaksu("Rasmus", "858585")
+
+        self.pankki_mock.tilisiirto.assert_called_with("Rasmus", 2, "858585", "33333-44455", 7)
+
+    def test_korista_poistaminen_toimii(self):
+
+        # tehdään ostokset
+        self.kauppa.aloita_asiointi()
+        self.kauppa.lisaa_koriin(1)
+        self.kauppa.lisaa_koriin(2)
+        self.kauppa.lisaa_koriin(2)
+        self.kauppa.poista_korista(2)
+        self.kauppa.tilimaksu("Rasmus", "858585")
+
+        # varmistetaan, että metodia tilisiirto on kutsuttu
+        self.pankki_mock.tilisiirto.assert_called_with("Rasmus", 42, "858585", "33333-44455", 5)
+
+        # tehdään toiset ostokset
+        self.kauppa.aloita_asiointi()
+        self.kauppa.lisaa_koriin(1)
+        self.kauppa.lisaa_koriin(2)
+        self.kauppa.lisaa_koriin(2)
+        self.kauppa.poista_korista(1)
+        self.kauppa.tilimaksu("Rasmus", "858585")
+
+        # varmistetaan, että metodia tilisiirto on kutsuttu
+        self.pankki_mock.tilisiirto.assert_called_with("Rasmus", 42, "858585", "33333-44455", 4)
