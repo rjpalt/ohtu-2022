@@ -15,10 +15,14 @@ class Ostoskori:
         else:
             return reduce(lambda summa, ostos: summa + ostos.lukumaara(), self._tuotteet, 0)
 
-        
+
     def hinta(self):
 
-        return self._hinta
+        if len(self._tuotteet) == 0:
+            return 0
+        else:
+            return reduce(lambda summa, ostos: summa + ostos.hinta(), self._tuotteet, 0)
+
 
     def lisaa_tuote(self, lisattava: Tuote):
 
