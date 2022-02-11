@@ -16,29 +16,45 @@ class TestKauppa(unittest.TestCase):
 
         self.varasto_mock = Mock()
 
-    def test_ostoksen_paaytyttya_pankin_metodia_tilisiirto_kutsutaan(self):
+        self.tuote1 = 10
+        self.tuote2 = 20
+        self.tuote3 = 0
 
         # tehdään toteutus saldo-metodille
         def varasto_saldo(tuote_id):
+
             if tuote_id == 1:
-                return 10
+                self.tuote1 = self.tuote1 - 1
+                return self.tuote1
+            if tuote_id == 2:
+                self.tuote2 = self.tuote2 - 1
+                return self.tuote2
+            if tuote_id == 3:
+                self.tuote3 = self.tuote3 - 1
+                return self.tuote3
 
         # tehdään toteutus hae_tuote-metodille
         def varasto_hae_tuote(tuote_id):
             if tuote_id == 1:
                 return Tuote(1, "maito", 5)
+            if tuote_id == 2:
+                return Tuote(2, "leipä", 2)
+            if tuote_id == 3:
+                return Tuote(3, "banaani", 1)
 
-        # otetaan toteutukset käyttöön
-        self.varasto_mock.saldo.side_effect = varasto_saldo
         self.varasto_mock.hae_tuote.side_effect = varasto_hae_tuote
+        self.varasto_mock.saldo.side_effect = varasto_saldo
 
         # alustetaan kauppa
-        kauppa = Kauppa(self.varasto_mock, self.pankki_mock, self.viitegeneraattori_mock)
+        self.kauppa = Kauppa(self.varasto_mock, self.pankki_mock, self.viitegeneraattori_mock)
+
+
+    def test_ostoksen_paaytyttya_pankin_metodia_tilisiirto_kutsutaan(self):
 
         # tehdään ostokset
-        kauppa.aloita_asiointi()
-        kauppa.lisaa_koriin(1)
-        kauppa.tilimaksu("pekka", "12345")
+        self.kauppa.aloita_asiointi()
+        self.kauppa.lisaa_koriin(1)
+        self.kauppa.tilimaksu("pekka", "12345")
 
         # varmistetaan, että metodia tilisiirto on kutsuttu
         self.pankki_mock.tilisiirto.assert_called()
@@ -47,44 +63,48 @@ class TestKauppa(unittest.TestCase):
     
     def test_ostoksen_paatyttya_pankin_metodia_tilisiirto_kutsutaan_oikeilla_arvoilla(self):
 
-        # tehdään toteutus saldo-metodille
-        def varasto_saldo(tuote_id):
-            if tuote_id == 1:
-                return 10
-
-        # tehdään toteutus hae_tuote-metodille
-        def varasto_hae_tuote(tuote_id):
-            if tuote_id == 1:
-                return Tuote(1, "maito", 5)
-
-        # otetaan toteutukset käyttöön
-        self.varasto_mock.saldo.side_effect = varasto_saldo
-        self.varasto_mock.hae_tuote.side_effect = varasto_hae_tuote
-
-        # alustetaan kauppa
-        kauppa = Kauppa(self.varasto_mock, self.pankki_mock, self.viitegeneraattori_mock)
-
         # tehdään ostokset
-        kauppa.aloita_asiointi()
-        kauppa.lisaa_koriin(1)
-        kauppa.tilimaksu("pekka", "12345")
+        self.kauppa.aloita_asiointi()
+        self.kauppa.lisaa_koriin(1)
+        self.kauppa.tilimaksu("pekka", "12345")
 
         # varmistetaan, että metodia tilisiirto on kutsuttu
         self.pankki_mock.tilisiirto.assert_called_with("pekka", 42, "12345", "33333-44455", 5)
         # toistaiseksi ei välitetä kutsuun liittyvistä argumenteista
 
 
+    def test_osta_kaksi_eri_tuotetta_varmista_oston_oikeellisuus(self):
+
+        # tehdään ostokset
+        self.kauppa.aloita_asiointi()
+        self.kauppa.lisaa_koriin(1)
+        self.kauppa.lisaa_koriin(2)
+        self.kauppa.tilimaksu("Rasmus", "858585")
+
+        # varmistetaan, että metodia tilisiirto on kutsuttu
+        self.pankki_mock.tilisiirto.assert_called_with("Rasmus", 42, "858585", "33333-44455", 7)
 
 
-# Aloitetaan asiointi, koriin lisätään kaksi eri tuotetta, joita varastossa on ja suoritetaan ostos, varmista että kutsutaan pankin metodia 
-# tilisiirto oikealla asiakkaalla, tilinumerolla ja summalla
-#
-# Aloitetaan asiointi, koriin lisätään kaksi samaa tuotetta, jota on varastossa tarpeeksi ja suoritetaan ostos, varmista että kutsutaan pankin
-# metodia tilisiirto oikealla asiakkaalla, tilinumerolla ja summalla
-#
-# Aloitetaan asiointi, koriin lisätään tuote, jota on varastossa tarpeeksi ja tuote joka on loppu ja suoritetaan ostos, varmista että kutsutaan
-# pankin metodia tilisiirto oikealla asiakkaalla, tilinumerolla ja summalla
-#
-#
-#
-#
+    def test_osta_kaksi_samaa_tuotetta_varmista_oston_oikeellisuus(self):
+
+        # tehdään ostokset
+        self.kauppa.aloita_asiointi()
+        self.kauppa.lisaa_koriin(2)
+        self.kauppa.lisaa_koriin(2)
+        self.kauppa.tilimaksu("Rasmus", "858585")
+
+        # varmistetaan, että metodia tilisiirto on kutsuttu
+        self.pankki_mock.tilisiirto.assert_called_with("Rasmus", 42, "858585", "33333-44455", 4)
+
+
+    def test_ostos_saldollisella_ja_saldottomalla_tuotteella_varmista_ostoksen_oikeus(self):
+
+
+        # tehdään ostokset
+        self.kauppa.aloita_asiointi()
+        self.kauppa.lisaa_koriin(2)
+        self.kauppa.lisaa_koriin(3)
+        self.kauppa.tilimaksu("Rasmus", "858585")
+
+        # varmistetaan, että metodia tilisiirto on kutsuttu
+        self.pankki_mock.tilisiirto.assert_called_with("Rasmus", 42, "858585", "33333-44455", 2)
