@@ -34,12 +34,7 @@ class Ostoskori:
 
     def poista_tuote(self, poistettava: Tuote):
 
-        ostokset = filter(lambda ostos : ostos.tuotteen_nimi() == poistettava.nimi(), self._tuotteet)
-
-        ostos = None
-
-        for osto in ostokset:
-            ostos = osto
+        ostos = [purchase for purchase in self._tuotteet if purchase.tuotteen_nimi() == poistettava.nimi()][0]
         
         if ostos.lukumaara() <= 1:
             self._tuotteet = [purchase for purchase in self._tuotteet if ostos.tuotteen_nimi() != poistettava.nimi()]
@@ -47,8 +42,8 @@ class Ostoskori:
             ostos.muuta_lukumaaraa(-1)
 
     def tyhjenna(self):
-        pass
-        # tyhjentää ostoskorin
+        
+        self._tuotteet.clear()
 
     def ostokset(self):
         
