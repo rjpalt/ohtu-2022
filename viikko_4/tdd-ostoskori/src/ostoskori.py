@@ -1,5 +1,6 @@
 from tuote import Tuote
 from ostos import Ostos
+from functools import reduce
 
 class Ostoskori:
     def __init__(self):
@@ -8,20 +9,27 @@ class Ostoskori:
         self._hinta = 0
 
     def tavaroita_korissa(self):
-        
-        return len(self._tuotteet)
-        # kertoo korissa olevien tavaroiden lukumäärän
-        # eli jos koriin lisätty 2 kpl tuotetta "maito", tulee metodin palauttaa 2 
-        # samoin jos korissa on 1 kpl tuotetta "maito" ja 1 kpl tuotetta "juusto", tulee metodin palauttaa 2 
 
+        if len(self._tuotteet) == 0:
+            return 0
+        else:
+            return reduce(lambda summa, ostos: summa + ostos.lukumaara(), self._tuotteet, 0)
+
+        
     def hinta(self):
 
         return self._hinta
 
     def lisaa_tuote(self, lisattava: Tuote):
-        
-        self._hinta += lisattava.hinta()
+
+        for ostos in self._tuotteet:
+            if ostos.tuotteen_nimi() == lisattava.nimi():
+                print('Muutetaan')
+                ostos.muuta_lukumaaraa(1)
+                return
+
         self._tuotteet.append(Ostos(lisattava))
+        self._hinta += lisattava._hinta
 
     def poista_tuote(self, poistettava: Tuote):
         # poistaa tuotteen
