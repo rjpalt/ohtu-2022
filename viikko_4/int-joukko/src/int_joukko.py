@@ -1,11 +1,7 @@
-KAPASITEETTI = 5
-OLETUSKASVATUS = 5
-
-
 class IntJoukko:
 
     # Konstruktori
-    def __init__(self, kapasiteetti=KAPASITEETTI, kasvatuskoko=OLETUSKASVATUS):
+    def __init__(self, kapasiteetti=5, kasvatuskoko=5):
         
 
         #Tarkasta kapasiteetti
@@ -133,17 +129,5 @@ class IntJoukko:
 
 
     def __str__(self):
-        if self.alkioiden_lkm == 0:
-            return "{}"
-        elif self.alkioiden_lkm == 1:
-            return "{" + str(self.ljono[0]) + "}"
-        else:
-            tuotos = "{"
-            for i in range(0, self.alkioiden_lkm - 1):
-                tuotos = tuotos + str(self.ljono[i])
-                tuotos = tuotos + ", "
-            tuotos = tuotos + str(self.ljono[self.alkioiden_lkm - 1])
-            tuotos = tuotos + "}"
-            return tuotos
 
-        
+        return  '{' + ', '.join([str(alkio) for alkio in self.ljono if alkio != 0]) + '}'
