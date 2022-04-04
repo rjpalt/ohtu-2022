@@ -1,0 +1,599 @@
+Title,Type,Owner,VersionOneID,Tags,Description
+"LCE / PNB118 - Medical Emergency Service, MES",Epic,antti.luonsinen@kone.com,E-17588,," PFI Integration test automation for:
+
+
+**Introduction**
+
+
+Specific lifts are designed to medical emergency operation when requested. In a case of emergency there is key switch in landing used to activate medical emergency mode. Other option is to use access card for activation. Designed lift cancels all calls, stop receiving new calls and travels non-stop to call level.
+
+
+ 
+
+
+PNB118 project summary can be found in Confluence: [[LINK to PNB118 Confluence]](https://confluence.kone.cbyte.fi/pages/viewpage.action?spaceKey=CD&title=PNB118) 
+
+
+
+Feature specific use cases/requirements are in Quality Center [[LINK to QC]](https://qc.kone.com/qcbin/start_a.jsp)
+
+
+* Requirements -> KCE Group system - Projects - KL118 - Use cases - Medical Emergency Operation
+* Requirements -> KCE Group system - Projects - KL118 - Requirements - Medical Emergency Operation
+
+
+ 
+
+
+**Dependencies  / references**
+
+
+* New multipurpose display is needed above the lift (from Program X) [LINK]
+* New FCBGxx
+* New LAN network architecture (with Moxa/ring architecture)
+
+
+
+**Original customer requirements**
+
+
+Link to VT specification: [[LINK TO KP0001262 VT SPEC]](http://pdm.kone.com/kone_production/#!object?obj_id=document:KP0001262-VT-SPEC-ELEVATOR-DESIGN-SPEC/en/-.1&show=str)
+
+
+
+**Feature activation**
+
+
+Medical emergency is activated by dedicated switch at landing (or with access card in hall station). For car control authorized user must activate lift operation switch in lift cabinet or use access card.
+
+
+Deactivation is done by authorized user turning off the switch in lift cabinet.
+
+
+ 
+
+
+**Description**
+
+
+Medical emergency operation is described in the storyboard material (see link below)
+
+
+
+**Related documentation**
+
+
+* Medical emergency use case is described in the storyboard material: [[LINK to storyboard](http://pdm.kone.com/kone_production/#!object?show=str&obj_id=document:51478696D01/en/(latest)&show=str)]
+* Medical Emergency confluence: [Medical Emergency Service for PNB118](https://confluence.kone.cbyte.fi/display/KF/Medical+Emergency+Service+for+PNB118)
+* PFI development content and schedule plan: [[PFI development excel]](http://pdm.kone.com/kone_production/#!object?obj_id=document:KP0001262-PFI-DEVELOPMENT-SCHEDULE/en/(latest)&show=str)
+
+
+
+**Affected elevator groups**
+
+
+* P01~P06 - Located at L1 and L4
+* P07~P11 - Located at L1 and L4
+* P12~P17 - Located at L1 and L4
+* P18~P22 - Located at L1 and L4
+* T20~T24 - Located at B1, L40, L75, L97
+* T25~T26 - Located at L1, L114 to L116, L117, L118
+* T30 - Located at L1
+* T31F~T32F - Located at L4, L5, L40, L41, L75, L76, L113 to L117
+* T33F~T34F - Located at L4, L5, L40, L41, L75, and L76
+* T81~T82 - Located at L97
+* T91F - Located at L115 to L118
+
+
+
+Functionalities per lift groups can be found in the following excels: [[LINK to KP0001262-CSP file]](http://pdm.kone.com/kone_production/#!object?obj_id=document:KP0001262-CSP/en/(latest)&show=str)[[LINK to Podium CSP](https://pdm.kone.com/kone_production/#!object?obj_id=document:KP0001262-CSP-PODI/en/(latest)&show=str)]
+
+"
+"LCE / PNB118 - Car to lobby, CTL",Epic,antti.luonsinen@kone.com,E-17589,," PFI Integration automation for:
+
+
+**Introduction**
+
+
+“Car to lobby” is specific customer requirement needed for Merdeka 118 delivery.
+
+
+With this feature authorized user can separate one lift using central command station to serve specific need until car-to-lobby mode is turned off by author. With this feature car is called to desired floor to wait next procedure by user (e.g other auxiliary feature to be used, like attendant service, independent service, etc).
+
+
+PNB118 project summary can be found in Confluence: [[LINK to PNB118 Confluence]](https://confluence.kone.cbyte.fi/pages/viewpage.action?spaceKey=CD&title=PNB118) 
+
+
+ 
+
+
+Feature specific use cases/requirements are in Quality Center [[LINK to QC]](https://qc.kone.com/qcbin/start_a.jsp)
+
+
+* Requirements -> KCE Group system - Projects - KL118 - Use cases - Car to Lobby
+* Requirements -> KCE Group system - Projects - KL118 - Requirements - Car to Lobby
+
+
+ 
+
+
+**Dependencies / references**
+
+
+“Car to lobby” has following dependencies:
+
+
+* New multipurpose display is needed above the lift (from Program X) [LINK]
+* New FCBGxx
+* New LAN network architecture (with Moxa/ring architecture)
+
+
+ 
+
+
+**Original customer requirements**
+
+
+Link to VT specification: [[LINK TO KP0001262 VT SPEC]](http://pdm.kone.com/kone_production/#!object?obj_id=document:KP0001262-VT-SPEC-ELEVATOR-DESIGN-SPEC/en/-.1&show=str)
+
+
+* Chapter 3.30 ""Auxiliary operations"" -> Car-to-Lobby operation
+* Chapter 2.03 COMMON AND SPECIAL LIFT PARAMETERS -> 22. Auxiliary operations -> Car-to-Lobby operation
+
+
+**Feature activation**
+
+
+Car to lobby mode is activated/deactivated by authorized user at central command station
+
+
+ 
+
+
+**Description**
+
+
+ Basic scenario (""independent operation"")
+
+
+* Car to lobby mode is activated by authorized user at central command station
+* When mode is on, multipurpose display above lift entrance is blank
+* Allocated lift for “car to lobby” serves all existing calls first, then returns to requested floor.
+* Once the selected car has arrived, the car shall open its doors if so selected in advance.  If lift doors remains closed they can be opened remotely by a command at central command station.
+* In car touch screen buttons are visible after lift has arrived to requested floor. Passenger makes car call using in-car touch screen.
+* Lift drives non-stop to destination floor and opens doors
+* Lift serves in independent mode until released from central command station (not any timeout ?)
+
+
+ 
+
+
+ 
+
+
+* Car to lobby mode is activated by authorized user at central command station
+* When mode is on, multipurpose display above lift entrance is blank
+* Allocated lift for “car to lobby” serves all existing calls first, then returns to requested floor.
+* Once the selected car has arrived, the car shall open its doors if so selected in advance.  If lift doors remains closed they can be opened remotely by a command at central command station.
+* Car remains in the selected floor waiting user to activate any other auxiliary feature (e.g. independent service, attendant service, VIP,etc ).
+* in car-controls inside the car are inactive until other auxiliary feature is activated by the authorized user inside the cab (In car operation become activate according to other auxiliary feature specification).
+
+
+ 
+
+
+Other requirements
+
+
+* Note other requirements specified in VT-specification, to determine that the lower deck is empty.
+* For Lift T19, car-to-lobby operation shall include the ability to bring the upper-deck to L1
+* When actuated at the central command station, the car selected shall make a trip to selected location, **unless** it is operating under another auxiliary operation, in which case the car shall travel to the selected location when it is removed from such auxiliary operation while car-to-lobby is still activated.
+* E-link must have remote controls to open the doors.
+
+
+
+**Related documentation**
+
+
+* Signalling devices operation/screen contents are described in Storyboard material [[LINK to auxiliary storyboards]](http://pdm.kone.com/kone_production/#!object?show=str&obj_id=document:51478696D01/en/(latest)&show=str)
+* Car-to-Lobby confluence: [Car to Lobby for PNB118](https://confluence.kone.cbyte.fi/display/KF/Car+to+Lobby+for+PNB118)
+* PFI development content and schedule plan: [[PFI development excel]](http://pdm.kone.com/kone_production/#!object?obj_id=document:KP0001262-PFI-DEVELOPMENT-SCHEDULE/en/(latest)&show=str)
+
+
+ 
+
+
+**Affected elevator groups (=all)**
+
+
+* Car Park Lifts P01-P06
+* Car Park Lifts P07-P11
+* Car Park Lifts P12-P17
+* Car Park Lifts P18-P22
+* Zone 1 office low rise (T1-T6)
+* Zone 1 office high rise (T7-T12)
+* Zone 2 office shuttles (T13-T18)
+* Zone 3 shuttles (T19-T24)
+* Skydeck shuttles (T25-T26)
+* Office service (T31F-T34F)
+* Inter Zone 2 & Disabled ""Round Glass Lift"" (T35)
+* Zone 2 office low rise (T41-T46)
+* Zone 2 office high rise (T47-T52)
+* Zone 3 office locals (T61-T66, T69-T70)
+* Hotel & SA locals (T67-T68,T71-T72)
+* Hotel & SA Service Locals (T81-T82)
+* Sky Deck Local Service (T91F)
+* Sky Deck Local Pass. ""Round Glass Lift"" (T92)
+* Shunt lift Lower (T93-T94)
+* Shunt Lift Upper (T95)
+
+
+ 
+
+
+* Functionalities per lift groups can be found in the following excels: [[LINK to KP0001262-CSP file]](http://pdm.kone.com/kone_production/#!object?obj_id=document:KP0001262-CSP/en/(latest)&show=str)[[LINK to Podium CSP](https://pdm.kone.com/kone_production/#!object?obj_id=document:KP0001262-CSP-PODI/en/(latest)&show=str)]
+
+
+ 
+
+
+ 
+
+"
+KCE - Automatic SW update during installation,Epic,antti.luonsinen@kone.com,E-19820,,"""To reduce time spent by technicians during installation or when installing a spare part.""
+
+
+**Scope:**
+
+
+Tests for automatic SW update for KCECPUc in the PFI Integration release test set
+
+
+**Acceptance Criteria:**
+
+
+Is the automatic SW update functionality verified in KCE release tests?
+
+"
+KCE - AES,Epic,antti.luonsinen@kone.com,E-20783,,"**KCE Lift marked this for 21Q2**
+
+
+**KCEGC marked this for Future**
+
+
+ 
+
+
+Also known as sabbatical feature. See [Feature Book/AES](https://confluence.kone.cbyte.fi/x/b4Wd).
+
+
+When lift is in AES mode it drives automatically between floors. Lift generates always a car call for next stop.
+
+
+High level support needed from group controller:
+
+
+* When all lifts in group are in AES service all landing call buttons should be inactive (or all the time active depending on the configuration). Inactive means here that no light are turned on even when pressed. Active means that button lights are all the time ON. This needs group controller support. Group controller knows the status of all lifts.
+* When lift is in AES mode it can also serve landing calls. AES mode affects lift door times (e.g. at main floor 180s, other floors 15s, doors using slower speed). If there are other lifts in group in normal mode they can serve normal calls much faster. Group controller allocation logic needs some fine tuning.
+
+
+For more detailed requirements (dig it out from somewhere and add link here)
+
+
+ 
+
+
+Related lift [EPIC](https://v1.kone.com/VersionOne/Epic.mvc/Summary?oidToken=Epic%3A1139134)
+
+"
+"LCE - Simultaneous parallel run prevention, SPP",Epic,antti.luonsinen@kone.com,E-24331,,"**Introduction**
+
+
+To avoid so called piston effect there has to be mechanism to avoid parallel start of elevators in the same lift group (same shaft) in certain conditions. Adjustable control must be build to tune needed parameters based on actual site condition/analyzes later on.
+
+
+PNB118 project summary can be found in Confluence: [[LINK to PNB118 Confluence]](https://confluence.kone.cbyte.fi/pages/viewpage.action?spaceKey=CD&title=PNB118)
+
+
+ 
+
+
+ 
+
+
+**Original customer requirements**
+
+
+Link to VT specification: [[LINK TO KP0001262 VT SPEC]](http://pdm.kone.com/kone_production/#!object?obj_id=document:KP0001262-VT-SPEC-ELEVATOR-DESIGN-SPEC/en/-.1&show=str)
+
+
+
+**Feature activation**
+
+
+Feature is always active in selected lift groups, needed parameters are adjustable.
+
+
+ 
+
+
+**Description**
+
+
+If two elevators would dispatch from the same floor, system shall avoid this two elevators starting at the same time, to delay one elevator to start after a period of time of the first elevator, because it will avoid the piston effect.  The delay time would be determined by contractor after the analysis, but it is adjustable in future according to actual site condition.
+
+
+
+**Related documentation**
+
+
+* Simultaneous parallel run prevention confluence: [Simultaneous Parallel Run Prevention (SPP)](https://confluence.kone.cbyte.fi/pages/viewpage.action?pageId=19735460)
+* PFI development content and schedule plan: [[PFI development excel]](http://pdm.kone.com/kone_production/#!object?obj_id=document:KP0001262-PFI-DEVELOPMENT-SCHEDULE/en/(latest)&show=str)
+
+
+ 
+
+
+Acceptance criteria:
+
+
+SPP functionality verified with group SW focus
+
+"
+LCE - Two Next Stop (DIN N) displays in same car,Epic,antti.luonsinen@kone.com,E-25558,,"TA tests for ""Two Next Stop (DIN N) displays in same car""
+
+"
+KCE - MES US,Epic,antti.luonsinen@kone.com,E-27118,,"**21Q4 because NA test environment still missing, delivery date unknown.**
+
+
+ 
+
+
+Lift plan: sprint 281-284 (Group already done)
+
+
+ 
+
+
+MES US - Medical Emergency Service for KCE NA. Tests needed to verify correct MES functionality according to North America requirements.
+
+
+ 
+
+
+**Inputs:**
+
+
+https://confluence.kone.cbyte.fi/pages/viewpage.action?pageId=40498081
+
+
+https://pdm.kone.com/kone\_production/#!object?show=revs&obj\_id=document:SO-10.15.001/en/U.2
+
+
+ 
+
+
+**Acceptance Criteria:**
+
+
+MES US functionality verified in a KCE NA environment
+
+"
+KCE 15.4 - PPS Passengers Pet Service,Epic,antti.luonsinen@kone.com,E-27120,,"Pet Button
+
+
+ 
+
+
+KCEGC: Implementation not done in 20Q4 (https://v1.kone.com/VersionOne/Epic.mvc/Summary?oidToken=Epic%3A1784886)
+
+"
+LCE - Special Landing Call,Epic,antti.luonsinen@kone.com,E-27239,,"Automated tests SLC in LCE environment
+
+"
+PX - Future test development topics,Epic,antti.luonsinen@kone.com,E-27595,,"Place holder for Program X related development topics, that don't fit the current quarter, in PFI Integration testing team.
+
+"
+KCE - Jama Requirement coverage,Epic,antti.luonsinen@kone.com,E-29194,,"KCE tests need to be linked to correct Jama requirements.
+
+
+Inputs:
+
+
+ 
+
+
+Acceptance Criteria:
+
+"
+CPUc performance testing (lift and group CPU),Epic,antti.luonsinen@kone.com,E-30762,,"Update 27.10.2021 - Group CPU% done for KCECPUc (http://10.0.154.34/cgi-bin/drraw/drraw.cgi?Mode=view;Graph=1625557317.16533). No simple solution available for the Lift CPU%.
+
+
+ 
+
+
+ 
+
+
+ 
+
+
+Include CPU (lift and group) rate monitoring in KCE regression test runs, at least in the passim tests.
+
+
+Meeting notes:
+
+
+1. Antti do not have now performance testing
+2. Antti environment:
+	1. 6 * kce table simulator (P3)
+	2. 6 * kce simulator (P4), on order
+		1. 3 * iso
+		2. 3 * table
+	3. KCEDCS 8 * table (P4), on order
+	4. No alarm phone installed
+3. X, 16,X needs performance testing , ideas:
+	1. Regression, test automation
+	2. Test plan:
+		1. Lift CPU %
+		2. Group CPU %
+	3. Traffic handling check
+		1. KCECPU C
+		2. KCEGC H
+	4. Maintenance actions
+		1. Software update , group process handless lift sw update
+	5. Alarm phone needed
+	6. Car connectivity needed
+	7. Lift Resets, needs to be checked
+
+
+Plan now : For start, Antti adds KCECPUC: group and lift utilization rates measurement in to 6 * kce table (P3) environment :  Collect D for group utilization  (Robert, Tuukka) and Lift CPU utilization ( Telemetry topic for robot : Ferenc + Arttu ) . CPU % Measurement will be done with under group traffic. Car connectivity, alarm phone and other functionality will be add later.
+
+
+ 
+
+
+Acceptance Criteria:
+
+
+Lift and Group CPU rate can be monitored in the regression tests.
+
+"
+KCE - PRL H* NA,Epic,antti.luonsinen@kone.com,E-32124,,"* **What is this about?**
+	+ KCE Priority at Landings (PRL H*) support for North America needed for the following sub-codes:
+		- PRL HA and
+		- PRL HO.
+
+
+Input:
+
+
+<https://konerqm.jamacloud.com/perspective.req#/items/7803800?projectId=86>
+
+"
+KCE 15.4 ph2 - Personal Landing Call,Epic,antti.luonsinen@kone.com,E-33124,,"* **What is this about?**
+	+ API landing call accepted even if “normal” landing call is already accepted
+	+ Target to complete in Q1 (commitment in Q1 planning). Testing to be started, SW 15.4 OK (Ari Koivisto)
+	+ Not yet in the SW 15.4 branch --> To be checked (cloud+device), cloud side has been contacted
+
+
+PFI Integration testing could (maybe) test this, in our Site API test set. Study needed, is this valid.
+
+
+ 
+
+
+Input:
+
+
+https://confluence.kone.cbyte.fi/display/PFI/1.+Call+Giving#id-1.CallGiving-2Personallandingcalls
+
+
+ 
+
+
+Acceptance Criteria:
+
+
+Integration level tests included in the X-Team regression set
+
+"
+KCE 16.x - ATS HK,Epic,antti.luonsinen@kone.com,E-33125,,"* **ATS HK**
+	+ ATS C proposed, but was not accepted by business (needed for certain government jobs). Private customers acceptable to use ATS C
+	+ **To be implemented in SW15.5? Is there a real business need? Delivery volume small**
+	+ Development effort estimate:
+		- Lift
+			* 180h (lead time 8weeks)
+		- Group
+			* Small
+		- Signalization
+			* Not needed, should be possible to do with IO configuration
+		- Rellab
+			* Possibility to do testing (test setup exists), not large testing impact
+	+ Comments:
+		- Signalization types
+			* KDS needed, if A-process, then all signalization would be needed, but KDS priority (KNS also has priority over others)
+		- Changes needed at least because ATS HK needs to include possibility to by-pass calls (by-passing done by attendant)
+		- SW and COP change
+		- ATS-HK, this feature is still required in government job, but not needed at DX launch
+
+
+Tests for ATS HK in group environment.
+
+
+Input:
+
+
+ 
+
+
+Acceptance Criteria:
+
+
+Tested included in the Regression set
+
+"
+KCE 15.5 - PVS group operation,Epic,antti.luonsinen@kone.com,E-33126,,"* **PVS (Penthouse Visitor Service) / penthouse group operation**: support for multiple penthouse floors / multiple PVS elevators inside group (related: KCE-SWBUG-823)
+	+ Residential building, one penthouse in building, one lift --> supported
+	+ Other scenarios are not supported
+	+ Multiple penthouse in building
+
+
+Automation tests needed for PFI Integration testing.
+
+
+Input:
+
+
+ 
+
+
+Acceptance Criteria:
+
+
+PVS group operation tests running in regression set
+
+"
+KCE 15.5 - AGV,Epic,antti.luonsinen@kone.com,E-33127,,"AGV - Automatically Guided Vehicle Mode
+
+
+**Status 11.4.2021**
+
+
+Standardizing AGV (i.e. developing AGV to be A-process solution) is not simple. Idea has been to utilize API solution. Before any implementation there would need to be an overall design planned and agreed.
+
+
+--> Postponed as potential item to Q3 / SW15.5
+
+
+Input:
+
+
+ 
+
+
+Acceptance Criteria:
+
+
+AGV tests included in the PFI Integration regression tests
+
+"
+21Q3 OEO Test Development,Epic,antti.luonsinen@kone.com,E-33870,,"XTeams OEO related work
+
+"
+KCE - PRL MA,Epic,antti.luonsinen@kone.com,E-34360,,"Integration tests with group focus, for PRL MA
+
+"
+X-Team - LCE test development,Epic,antti.luonsinen@kone.com,E-35666,,"PFI Integration testing teams placeholder for unscheduled LCE test development work
+
+"
+X-Team - KCE test development,Epic,antti.luonsinen@kone.com,E-35667,,"Placeholder for KCE test development items that are not yet scheduled to any quarter (PFI Integration testing)
+
+"
+X-Team - Unscheduled swimlane,Epic,antti.luonsinen@kone.com,E-35686,,
+ACS1000,Epic,antti.luonsinen@kone.com,E-38504,,"X-Teams OfficeFlow test development items
+
+"
+XDOP,Epic,antti.luonsinen@kone.com,E-38507,,"X-Teams OfficeFlow test development items
+
+"
